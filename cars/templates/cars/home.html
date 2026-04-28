@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Car Rental - Harare</title>
+    <style>
+        body { font-family: Arial; max-width: 1000px; margin: 0 auto; padding: 20px; }
+        .header { background: #2563eb; color: white; padding: 20px; margin: -20px -20px 20px; }
+        .car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .car-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; }
+        .price { font-size: 24px; color: #16a34a; font-weight: bold; }
+        .book-btn { background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🚗 Rent a Car in Harare</h1>
+        <p>Available cars for hire</p>
+    </div>
+
+    <div class="car-grid">
+        {% for car in cars %}
+        <div class="car-card">
+            <h2>{{ car.year }} {{ car.make }} {{ car.model }}</h2>
+            <p><strong>Transmission:</strong> {{ car.transmission }}</p>
+            <p><strong>Fuel:</strong> {{ car.fuel_type }}</p>
+            <p><strong>Location:</strong> {{ car.location }}</p>
+            <p class="price">${{ car.price_per_day }}/day</p>
+            <button class="book-btn">Book Now</button>
+        </div>
+        {% empty %}
+        <p>No cars available right now. Check back later.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>
