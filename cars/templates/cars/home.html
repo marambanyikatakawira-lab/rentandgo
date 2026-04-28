@@ -1,35 +1,85 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Car Rental - Harare</title>
+    <title>Rent&Go - Car Rental</title>
     <style>
-        body { font-family: Arial; max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .header { background: #2563eb; color: white; padding: 20px; margin: -20px -20px 20px; }
-        .car-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .car-card { border: 1px solid #ddd; border-radius: 8px; padding: 15px; }
-        .price { font-size: 24px; color: #16a34a; font-weight: bold; }
-        .book-btn { background: #2563eb; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        body { font-family: Arial; margin: 20px; }
+        .section { border: 1px solid #ccc; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .car-card { border: 1px solid #ddd; padding: 10px; margin: 10px 0; border-radius: 5px; }
+        select, input, button { padding: 8px; margin: 5px; }
+        button { background: #007bff; color: white; border: none; cursor: pointer; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>🚗 Rent a Car in Harare</h1>
-        <p>Available cars for hire</p>
+    <h1>Rent&Go - Available Cars</h1>
+
+    <!-- SORTING SECTION -->
+    <div class="section">
+        <h3>Sorting Section</h3>
+        <form method="GET">
+            <label>Choose Algorithm:</label>
+            <select name="algorithm">
+                <option value="bubble">Bubble Sort</option>
+                <option value="selection">Selection Sort</option>
+                <option value="quick">Quick Sort</option>
+            </select>
+            
+            <label>Choose Column:</label>
+            <select name="column">
+                <option value="make">Make</option>
+                <option value="model">Model</option>
+                <option value="year">Year</option>
+                <option value="price_per_day">Price</option>
+            </select>
+            
+            <label>Sort Order:</label>
+            <select name="order">
+                <option value="asc">Ascending</option>
+                <option value="desc">Descending</option>
+            </select>
+            
+            <button type="submit" name="sort">Sort</button>
+        </form>
     </div>
 
-    <div class="car-grid">
+    <!-- SEARCHING SECTION -->
+    <div class="section">
+        <h3>Searching Section</h3>
+        <form method="GET">
+            <label>Choose Algorithm:</label>
+            <select name="search_algorithm">
+                <option value="linear">Linear Search</option>
+                <option value="binary">Binary Search</option>
+            </select>
+            
+            <label>Choose Column:</label>
+            <select name="search_column">
+                <option value="make">Make</option>
+                <option value="model">Model</option>
+                <option value="year">Year</option>
+            </select>
+            
+            <label>Search for:</label>
+            <input type="text" name="search_value" placeholder="e.g. Toyota">
+            
+            <button type="submit" name="search">Search</button>
+        </form>
+    </div>
+
+    <!-- CAR LISTINGS -->
+    <div class="section">
+        <h3>Available Cars</h3>
         {% for car in cars %}
-        <div class="car-card">
-            <h2>{{ car.year }} {{ car.make }} {{ car.model }}</h2>
-            <p><strong>Transmission:</strong> {{ car.transmission }}</p>
-            <p><strong>Fuel:</strong> {{ car.fuel_type }}</p>
-            <p><strong>Location:</strong> {{ car.location }}</p>
-            <p class="price">${{ car.price_per_day }}/day</p>
-            <button class="book-btn">Book Now</button>
-        </div>
+            <div class="car-card">
+                <strong>{{ car.year }} {{ car.make }} {{ car.model }}</strong><br>
+                Price: ${{ car.price_per_day }}/day | 
+                Transmission: {{ car.transmission }} | 
+                Available: {{ car.is_available }}
+            </div>
         {% empty %}
-        <p>No cars available right now. Check back later.</p>
+            <p>No cars found. Try a different search.</p>
         {% endfor %}
     </div>
+
 </body>
 </html>
